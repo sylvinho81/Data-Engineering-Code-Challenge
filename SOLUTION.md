@@ -15,6 +15,7 @@ Tech Stack:
 - Python
 - PySpark 
 - Delta Lake as open table format.
+- Docker and Docker-compose 
 
 ### Implementation
 
@@ -25,8 +26,8 @@ Tech Stack:
 - [Data Export](spark_jobs/data_export.py) 
 
 You will realize that I am loading the entire table from delta lake in each job. The idea would be to orchestrate 
-this with Airflow or similar and just pick the necessary data by using the load timestamps added: created_at and 
-updated_at
+this with Airflow or similar and just pick the necessary data by using the load timestamps that I added to the 
+dataframes: created_at and updated_at.
 
 #### UDFs
 
@@ -36,7 +37,8 @@ and if it is not strictly needed. Because UDFs are like black boxes for Spark.
 ### QA
 
 I would another extra layer to run Great Expectations in each Medallion layer to check the Quality of the data.
-I am not expending time now implementing this. 
+I am not expending time now implementing this. The idea would be to generate a html report and send it through email
+or make it available through the browser or something.
 
 ### Tests
 
@@ -48,7 +50,7 @@ on implementing all possible tests. I prefer to focus on give some examples and 
 through Github actions.
 
 We could also implement integration tests to test the end to end by running the spark jobs by using "subprocess" from 
-Python  and submitting the jobs. I didn't expend time on implement this.
+Python  and submitting the spark jobs. I didn't expend time on implement this.
 
 ### CI/CD
 
@@ -73,11 +75,11 @@ Based on a rule mapping it can be defined new Classes for validations and config
 I have used the built on functionality that spark provides to remove duplicates. I have commented in the code 
 that we could get the deduplicates and store it in some location for later analysis. The same for the validations,
 those records that don't pass the validation could be stored in some location for later analysis as well. I didn't 
-expect time on implementing this. 
+expend time on implementing this. 
 
 ### ENFORCE SCHEMA
 
-Instead of casting "manually" to the right data types because in the bronze layer I store everything as StringType,
+Instead of casting "manually" to the right data types because in the bronze layer I have stored everything as StringType,
 directly I rely on the Delta Lake tables schema to enforce it. 
 
 ## MAKEFILE
