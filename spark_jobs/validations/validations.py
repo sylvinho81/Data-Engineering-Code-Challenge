@@ -91,7 +91,8 @@ class ValuesToBeBetweenValidation(Validation):
             "is_invalid",
             array_union(
                 coalesce(col("is_invalid"), array()),
-                array(when(~((input_df[self.column] >= lit(min_value)) & (input_df[self.column] <= lit(max_value))), lit(True))
+                array(when(~((input_df[self.column] >= lit(min_value)) & (input_df[self.column] <= lit(max_value))),
+                           lit(True))
                       .otherwise(lit(False)))
             )
         ).withColumn(

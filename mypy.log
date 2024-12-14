@@ -1,0 +1,13 @@
+Collecting types-PyYAML
+  Downloading types_PyYAML-6.0.12.20240917-py3-none-any.whl.metadata (1.6 kB)
+Collecting types-setuptools
+  Downloading types_setuptools-75.6.0.20241126-py3-none-any.whl.metadata (2.0 kB)
+Downloading types_PyYAML-6.0.12.20240917-py3-none-any.whl (15 kB)
+Downloading types_setuptools-75.6.0.20241126-py3-none-any.whl (72 kB)
+Installing collected packages: types-setuptools, types-PyYAML
+Successfully installed types-PyYAML-6.0.12.20240917 types-setuptools-75.6.0.20241126
+Installing missing stub packages:
+/root/.pyenv/versions/3.10.12/bin/python3.10 -m pip install types-PyYAML types-setuptools
+
+
+Success: no issues found in 37 source files

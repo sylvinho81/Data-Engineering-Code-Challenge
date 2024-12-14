@@ -4,7 +4,7 @@ import logging
 from typing import List
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import count, col, array_contains
+from pyspark.sql.functions import array_contains
 from pyspark.sql.types import StructType
 
 from spark_jobs.schemas.products.bronze_layer import SCHEMA_PRODUCTS_BRONZE_DATA
@@ -98,12 +98,12 @@ def _filter_and_deduplicate_data(spark: SparkSession, source_path: str, destinat
     valid_df = delta_table_df.filter(~array_contains("is_invalid", True))
 
     # TODO: we could store the invalid ones after applying validation in parquet files so Data Team could analyze it
-    invalid_df = delta_table_df.filter(~array_contains("is_invalid", True))
+    # invalid_df = delta_table_df.filter(~array_contains("is_invalid", True))
 
     # TODO: we could store the duplicates in parquet files for later analysis
-    duplicates_df = (
-        valid_df.groupBy(columns_for_deduplication).agg(count("*").alias("count")).filter(col("count") > 1)
-    )
+    # duplicates_df = (
+    #    valid_df.groupBy(columns_for_deduplication).agg(count("*").alias("count")).filter(col("count") > 1)
+    #)
 
     valid_without_duplicated_df = valid_df.dropDuplicates(columns_for_deduplication).drop("is_invalid", "reason")
 

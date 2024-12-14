@@ -15,7 +15,7 @@ def main():
     logger.info(f"Silver path: {source_path}")
     logger.info(f"Gold path: {destination_gold_path}")
 
-    spark = _initiate_spark_session(app_name="Data Transformation Job")
+    _initiate_spark_session(app_name="Data Transformation Job")
 
 
 if __name__ == "__main__":
