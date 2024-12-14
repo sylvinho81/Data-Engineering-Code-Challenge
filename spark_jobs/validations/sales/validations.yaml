@@ -1,0 +1,34 @@
+validations:
+  transaction_date:
+    rules: [
+      {
+        rule_name: "check_if_not_null",
+        "add_info": {}
+      },
+      {
+        rule_name: "check_valid_date",
+        "add_info": {date_format: "yyyy-MM-dd" }
+      }
+    ]
+  price:
+    rules: [
+      {
+        rule_name: "check_if_not_null",
+        "add_info": {}
+      },
+      {
+        rule_name: "check_if_values_between",
+        "add_info": {min: "0", max: "100000000000" }
+      }
+    ]
+  quantity:
+    rules: [
+      {
+        rule_name: "check_if_not_null",
+        "add_info": {}
+      },
+      {
+        rule_name: "check_if_values_between",
+        "add_info": {min: "1", max: "100000000000" }
+      }
+    ]

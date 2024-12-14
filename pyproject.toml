@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "sales_transactions_etl"
+version = "0.1.0"
+description = ""
+authors = ["Pablo <pablotorre81@gmail.com>"]
+readme = "README.md"
+exclude = []
+packages = [
+    { include = "spark_jobs/**/*.py" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+PyYAML = "6.0.1"
+
+[tool.poetry.group.test.dependencies]
+pyspark = "3.3.0"
+pytest = "8.2.1"
+delta-spark = "2.1.0"
+coverage = "7.5.2"
+pytest-cov = "5.0.0"
+chispa = "0.10.0"
+ruff = "0.4.9"
+mypy = "1.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

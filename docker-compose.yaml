@@ -1,0 +1,8 @@
+services:
+  sales-transactions-etl:
+    image: docker-sales-transactions-etl:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app

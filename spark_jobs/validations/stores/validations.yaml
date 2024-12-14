@@ -1,0 +1,8 @@
+validations:
+  store_name:
+    rules: [
+      {
+        rule_name: "check_if_not_null",
+        "add_info": {}
+      },
+    ]

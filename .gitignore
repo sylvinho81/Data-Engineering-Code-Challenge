@@ -1,0 +1,14 @@
+.idea
+
+dist-sales
+poetry
+sales-venv
+spark-warehouse
+.venv
+
+.coverage
+coverage.xml
+junit.xml
+**/__pycache__/
+__pycache__
+htmlcov
