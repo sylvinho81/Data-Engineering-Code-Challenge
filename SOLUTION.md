@@ -154,3 +154,7 @@ data_export.py
 ```
 spark-submit --packages io.delta:delta-core_2.12:2.1.0  --py-files "/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0.tar.gz,/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0-py3-none-any.whl"  /home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/data_export.py  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/gold_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/gold_layer
 ```
+
+## OTHERS
+
+I didn't expend time on configuring the more recent versions of the different libraries/frameworks like python, delta lake, etc
