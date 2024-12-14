@@ -41,29 +41,18 @@ def _store_delta_table_by_merge(
     delta_path: str,
     spark_session: SparkSession,
     columns_match: List[str],
-    columns_update: List[str],
-    schema_table: StructType,
-    partition_columns: Optional[List[str]] = None,
+    columns_update: List[str]
 ) -> None:
-    try:
-        delta_table = DeltaTable.forPath(spark_session, delta_path)
-        match_condition = " AND ".join(f"dest.{column} = updates.{column}" for column in columns_match)
+    delta_table = DeltaTable.forPath(spark_session, delta_path)
+    match_condition = " AND ".join(f"dest.{column} = updates.{column}" for column in columns_match)
 
-        # Create a condition to check if any of the update columns have changed
-        update_condition = " OR ".join(f"dest.{column} != updates.{column}" for column in columns_update)
-        columns_update.append("updated_at")
+    # Create a condition to check if any of the update columns have changed
+    update_condition = " OR ".join(f"dest.{column} != updates.{column}" for column in columns_update)
+    columns_update.append("updated_at")
 
-        delta_table.alias("dest").merge(df.alias("updates"), match_condition).whenMatchedUpdate(
-            condition=update_condition, set={column: f"updates.{column}" for column in columns_update}
-        ).whenNotMatchedInsertAll().execute()
-    except AnalysisException:
-        _create_delta_lake_table(
-            spark_session=spark_session,
-            delta_path=delta_path,
-            schema_table=schema_table,
-            partition_columns=partition_columns,
-        )
-        _store_delta_table_by_append(df=df, delta_path=delta_path, partition_columns=partition_columns)
+    delta_table.alias("dest").merge(df.alias("updates"), match_condition).whenMatchedUpdate(
+        condition=update_condition, set={column: f"updates.{column}" for column in columns_update}
+    ).whenNotMatchedInsertAll().execute()
 
 
 def load_delta_lake_table(spark: SparkSession, delta_table_path: str) -> DataFrame:

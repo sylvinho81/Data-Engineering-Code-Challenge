@@ -1,5 +1,9 @@
 .idea
 
+data/bronze_layer/*
+data/silver_layer/*
+data/gold_layer/*
+
 dist-sales
 poetry
 sales-venv

@@ -16,6 +16,20 @@ Tech Stack:
 - PySpark 
 - Delta Lake as open table format
 
+### Implementation
+
+3 pyspark jobs to keep consistence with what is required in the Challenge: 
+
+- [Data Preparation](spark_jobs/data_preparation.py) 
+- [Data Transformation](spark_jobs/data_transformation.py) 
+- [Data Export](spark_jobs/data_export.py) 
+
+### Tests
+
+I just decided to implement some tests to show how I would do it by using Chispa, that is a requirement in the Challenge
+and how they would be executed as part of the CI by using Github Actions
+
+## MODULES
 
 ### VALIDATIONS MODULE
 
@@ -27,7 +41,12 @@ Based on a configuration yaml we can add validations on an easy way. I just impl
 
 Based on a rule mapping it can be defined new Classes for validations and configure it in the yaml configuration file.
 
-## Makefile
+### ENFORCE SCHEMA
+
+Instead of casting "manually" to the right data types because in the bronze layer I store everything as StringType,
+directly I rely on the Delta Lake tables schema to enforce it. 
+
+## MAKEFILE
 
 Run next command to know which commands are available in the Makefile
 
@@ -71,3 +90,16 @@ $ make test-unit
 $ make test-integration
 ```
 
+#### Run PySpark Jobs
+
+```
+$ make build
+```
+
+This is just an example to run the pyspark job: data_preparation.py
+
+```
+$ spark-submit --packages io.delta:delta-core_2.12:2.1.0 --py-files "/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0.tar.gz,/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0-py3-none-any.whl"  /home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/data_preparation.py /home/pablo/Projects/Data-Engineering-Code-Challenge/data/landing_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/bronze_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/silver_layer
+```
+
+You need to change to your specific paths in your local machine
