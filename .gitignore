@@ -1,8 +1,13 @@
 .idea
 
 data/bronze_layer/*
+!data/bronze_layer/.gitkeep
+
 data/silver_layer/*
+!data/silver_layer/.gitkeep
+
 data/gold_layer/*
+!data/gold_layer/.gitkeep
 
 dist-sales
 poetry
