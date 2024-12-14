@@ -183,6 +183,8 @@ def main():
                                  columns_match=["transaction_id", "store_id", "product_id"],
                                  columns_update=["quantity", "transaction_date", "price"])
 
+    spark.stop()
+
 
 if __name__ == "__main__":
     main()
