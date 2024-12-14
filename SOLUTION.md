@@ -28,6 +28,11 @@ You will realize that I am loading the entire table from delta lake in each job.
 this with Airflow or similar and just pick the necessary data by using the load timestamps added: created_at and 
 updated_at
 
+#### UDFs
+
+I have implemented the UDF because it was required by the challenge, but I would avoid to use UDFs as much as possible
+and if it is not strictly needed. Because UDFs are like black boxes for Spark. 
+
 ### QA
 
 I would another extra layer to run Great Expectations in each Medallion layer to check the Quality of the data.
@@ -41,6 +46,9 @@ In the makefile there is a variable COVERAGE_THRESHOLD that let us configure the
 The idea is to have a high threshold, 90% or similar but since this is a Challenge I will not be expending time
 on implementing all possible tests. I prefer to focus on give some examples and indicate how it will be run the CI
 through Github actions.
+
+We could also implement integration tests to test the end to end by running the spark jobs by using "subprocess" from 
+Python  and submitting the jobs. I didn't expend time on implement this.
 
 ### CI/CD
 
@@ -59,6 +67,13 @@ Based on a configuration yaml we can add validations on an easy way. I just impl
 - check that the date has the format YYYY-MM-DD
 
 Based on a rule mapping it can be defined new Classes for validations and configure it in the yaml configuration file.
+
+### DEDUPLICATION
+
+I have used the built on functionality that spark provides to remove duplicates. I have commented in the code 
+that we could get the deduplicates and store it in some location for later analysis. The same for the validations,
+those records that don't pass the validation could be stored in some location for later analysis as well. I didn't 
+expect time on implementing this. 
 
 ### ENFORCE SCHEMA
 
@@ -134,3 +149,8 @@ data_transformation.py
 $ spark-submit --packages io.delta:delta-core_2.12:2.1.0 --py-files "/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0.tar.gz,/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0-py3-none-any.whl"  /home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/data_transformation.py  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/silver_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/gold_layer
 ```
 
+data_export.py
+
+```
+spark-submit --packages io.delta:delta-core_2.12:2.1.0  --py-files "/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0.tar.gz,/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0-py3-none-any.whl"  /home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/data_export.py  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/gold_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/gold_layer
+```

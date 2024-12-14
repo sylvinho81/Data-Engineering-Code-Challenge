@@ -42,7 +42,6 @@ def sales_aggregation(spark: SparkSession, source_silver_path: str, destination_
     )
 
     _store_delta_table_by_overwrite(df=sales_total_revenue_df, delta_path=destination_path)
-    #sales_total_revenue_df.write.csv(destination_path, mode="overwrite", header=True)
 
     return sales_total_revenue_df
 
