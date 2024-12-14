@@ -14,7 +14,7 @@ Implement a Medallion Architecture with 4 layers:
 Tech Stack:
 - Python
 - PySpark 
-- Delta Lake as open table format
+- Delta Lake as open table format.
 
 ### Implementation
 
@@ -24,10 +24,19 @@ Tech Stack:
 - [Data Transformation](spark_jobs/data_transformation.py) 
 - [Data Export](spark_jobs/data_export.py) 
 
+### QA
+
+I would another extra layer to run Great Expectations in each Medallion layer to check the Quality of the data.
+I am not expending time now implementing this. 
+
 ### Tests
 
-I just decided to implement some tests to show how I would do it by using Chispa, that is a requirement in the Challenge
-and how they would be executed as part of the CI by using Github Actions
+I just decided to implement some tests to show how I would do it by using Pytest and Chispa, that is a requirement in 
+the Challenge and how they would be executed as part of the CI by using Github Actions
+In the makefile there is a variable COVERAGE_THRESHOLD that let us configure the threshold for the coverage test. 
+The idea is to have a high threshold, 90% or similar but since this is a Challenge I will not be expending time
+on implementing all possible tests. I prefer to focus on give some examples and indicate how it will be run the CI
+through Github actions.
 
 ## MODULES
 
