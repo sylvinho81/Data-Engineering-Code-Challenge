@@ -12,8 +12,7 @@ def categorize_products(df: DataFrame) -> DataFrame:
         df (DataFrame): The input DataFrame containing product data with a 'price' column.
 
     Returns:
-        DataFrame or None: The DataFrame with an additional 'price_category' column if 'price' exists,
-                           otherwise None if 'price' column is missing.
+        DataFrame: The DataFrame with an additional 'price_category'
     """
 
     def categorize_price(price):
