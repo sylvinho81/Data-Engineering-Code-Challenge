@@ -52,7 +52,7 @@ install-poetry:	## install poetry command if required
 install-poetry: INSTALLED_POETRY_VERSION := "$(shell poetry --version 2> /dev/null)"
 install-poetry:
 	@if [ $(INSTALLED_POETRY_VERSION) = "" ]; then \
-		curl -sSL https://install.python-poetry.org | POETRY_HOME=$PWD/poetry POETRY_VERSION=$(POETRY_VERSION) python3 -; \
+		curl -sSL https://install.python-poetry.org | POETRY_HOME=$(POETRY_HOME) POETRY_VERSION=$(POETRY_VERSION) python3 -; \
 	fi;
 
 validate-env: ## Validate poetry environment and install missing dependencies

@@ -1,15 +1,7 @@
-from pyspark.sql import DataFrame
-from pyspark.sql.functions import lit
 from pyspark.sql.types import (
     StructType,
     StructField,
-    DateType,
     StringType,
-    LongType,
-    DoubleType,
-    IntegerType,
-    BooleanType,
-    DecimalType
 )
 
 
