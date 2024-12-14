@@ -15,13 +15,11 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install Poetry
-      run: |
-        python -m pip install --upgrade pip
-        pip install poetry==1.8.3
-
     - name: Install dependencies
       run: make install
+
+    - name: Install Poetry
+      run: make install-poetry
 
     - name: Run linter checks
       run: make lint
