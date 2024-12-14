@@ -66,6 +66,7 @@ build: clean install-poetry ## Build Python Package with Dependencies
 	## uncomment this line once we have the main pyspark jobs
 	@cp $(MAIN_PACKAGE_CODE)/data_preparation.py ./dist
 	@cp $(MAIN_PACKAGE_CODE)/data_transformation.py ./dist
+	@cp $(MAIN_PACKAGE_CODE)/data_export.py ./dist
 	# Dynamically rename files and upload to GCS
 	@echo "Renaming files whl and tar.gz"
 	@set -e; \
