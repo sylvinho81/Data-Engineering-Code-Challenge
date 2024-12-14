@@ -36,6 +36,14 @@ def _store_delta_table_by_append(df: DataFrame, delta_path: str, partition_colum
         df.write.mode("append").format("delta").save(delta_path)
 
 
+def _store_delta_table_by_overwrite(df: DataFrame, delta_path: str, partition_columns: Optional[List[str]] = None) \
+        -> None:
+    if partition_columns:
+        df.write.mode("overwrite").partitionBy(*partition_columns).format("delta").save(delta_path)
+    else:
+        df.write.mode("overwrite").format("delta").save(delta_path)
+
+
 def _store_delta_table_by_merge(
     df: DataFrame,
     delta_path: str,

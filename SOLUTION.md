@@ -24,6 +24,10 @@ Tech Stack:
 - [Data Transformation](spark_jobs/data_transformation.py) 
 - [Data Export](spark_jobs/data_export.py) 
 
+You will realize that I am loading the entire table from delta lake in each job. The idea would be to orchestrate 
+this with Airflow or similar and just pick the necessary data by using the load timestamps added: created_at and 
+updated_at
+
 ### QA
 
 I would another extra layer to run Great Expectations in each Medallion layer to check the Quality of the data.
@@ -37,6 +41,12 @@ In the makefile there is a variable COVERAGE_THRESHOLD that let us configure the
 The idea is to have a high threshold, 90% or similar but since this is a Challenge I will not be expending time
 on implementing all possible tests. I prefer to focus on give some examples and indicate how it will be run the CI
 through Github actions.
+
+### CI/CD
+
+For CD, once the PR is merged into master we would have another github job in a different file called cd.yaml that will
+call the recipe "build" in the Makefile and will push the wheel and tar to a specific repo  (e.g s3 bucket) that will
+be used later to submit a pyspark job into EMR. 
 
 ## MODULES
 
@@ -105,10 +115,22 @@ $ make test-integration
 $ make build
 ```
 
-This is just an example to run the pyspark job: data_preparation.py
+This is just an example to run the pyspark jobs in order since it is an ETL that should be orchestrated:
+
+IMPORTANT: You need to change to your specific paths in your local machine
+
+
+data_preparation.py
 
 ```
 $ spark-submit --packages io.delta:delta-core_2.12:2.1.0 --py-files "/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0.tar.gz,/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0-py3-none-any.whl"  /home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/data_preparation.py /home/pablo/Projects/Data-Engineering-Code-Challenge/data/landing_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/bronze_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/silver_layer
 ```
 
-You need to change to your specific paths in your local machine
+
+
+data_transformation.py
+
+```
+$ spark-submit --packages io.delta:delta-core_2.12:2.1.0 --py-files "/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0.tar.gz,/home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/sales_transactions_etl-0.1.0-py3-none-any.whl"  /home/pablo/Projects/Data-Engineering-Code-Challenge/dist-sales/data_transformation.py  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/silver_layer  /home/pablo/Projects/Data-Engineering-Code-Challenge/data/gold_layer
+```
+

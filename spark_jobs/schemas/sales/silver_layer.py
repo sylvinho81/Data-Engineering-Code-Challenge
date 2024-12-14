@@ -1,19 +1,19 @@
 from pyspark.sql.types import (
     StructType,
     StructField,
-    StringType, TimestampType,
+    StringType, TimestampType, IntegerType, DateType, DoubleType,
 )
 
 
 SCHEMA_SALES_SILVER_DATA = StructType(
     [
-        StructField("transaction_id", StringType(), True),
-        StructField("store_id", StringType(), True),
-        StructField("product_id", StringType(), True),
-        StructField("quantity", StringType(), True),
-        StructField("transaction_date", StringType(), True),
-        StructField("price", StringType(), True),
-        StructField("created_at", TimestampType(), True),
-        StructField("updated_at", TimestampType(), True),
+        StructField("transaction_id", StringType(), False),
+        StructField("store_id", StringType(), False),
+        StructField("product_id", StringType(), False),
+        StructField("quantity", IntegerType(), False),
+        StructField("transaction_date", DateType(), False),
+        StructField("price", DoubleType(), False),
+        StructField("created_at", TimestampType(), False),
+        StructField("updated_at", TimestampType(), False),
     ]
 )
