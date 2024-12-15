@@ -9,6 +9,7 @@ data/silver_layer/*
 data/gold_layer/*
 !data/gold_layer/.gitkeep
 
+dist
 dist-sales
 poetry
 sales-venv

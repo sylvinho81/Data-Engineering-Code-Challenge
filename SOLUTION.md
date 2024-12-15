@@ -67,6 +67,9 @@ Based on a configuration yaml we can add validations on an easy way. I just impl
 - check null values
 - check that a value is in a specific range so for example price can not be negative
 - check that the date has the format YYYY-MM-DD
+  I assumed that we want to filter those dates that don't match that format but we could transform the other ones into 
+  that format before applying the filtering or after checking which ones are invalids. In order to transform the dates
+  I just have implemented this function: [transform_dates](spark_jobs/utils/dates.py)
 
 Based on a rule mapping it can be defined new Classes for validations and configure it in the yaml configuration file.
 
